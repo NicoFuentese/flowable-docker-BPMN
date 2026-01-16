@@ -1,0 +1,9 @@
+# 1. Inicializar el repositorio en la carpeta actual
+git init
+
+# 2. Crear el archivo .gitignore excluyendo la data de Postgres
+echo "postgres_data/" > .gitignore
+echo ".DS_Store" >> .gitignore
+
+# 3. Verificar qué se va a subir (No debería aparecer postgres_data)
+git status
