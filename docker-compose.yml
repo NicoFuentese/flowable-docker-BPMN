@@ -1,0 +1,44 @@
+services:
+  # Servicio de Base de Datos
+  flowable-db:
+    image: postgres:13-alpine
+    container_name: flowable-postgres
+    environment:
+      - POSTGRES_USER=flowable
+      - POSTGRES_PASSWORD=flowable
+      - POSTGRES_DB=flowable
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - flowable-net
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U flowable"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # Servicio de Aplicación Flowable
+  flowable-ui:
+    image: flowable/flowable-ui:latest
+    container_name: flowable-ui
+    depends_on:
+      flowable-db:
+        condition: service_healthy
+    environment:
+      - SPRING_DATASOURCE_DRIVER_CLASS_NAME=org.postgresql.Driver
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://flowable-db:5432/flowable
+      - SPRING_DATASOURCE_USERNAME=flowable
+      - SPRING_DATASOURCE_PASSWORD=flowable
+      - FLOWABLE_COMMON_APP_IDM-REDIRECT-URL=http://localhost:8080/flowable-idm
+    ports:
+      - "8080:8080"
+    networks:
+      - flowable-net
+
+volumes:
+  postgres_data:
+
+networks:
+  flowable-net:
