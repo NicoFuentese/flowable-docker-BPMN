@@ -20,23 +20,23 @@ El objetivo es proporcionar un entorno de desarrollo local rápido, aislado y re
 ## 🛠️ Instalación y Despliegue
 
 1. Levantar el Servicio
-´´´PowerShell
+```PowerShell
 # Si tu usuario tiene permisos de docker
 docker compose up -d
 
 # Si no estás en el grupo docker
 sudo docker compose up -d
-´´´
+```
 
 2. Verificar el arranque (Espera hasta ver el mensaje: Started Application in ... seconds.)
-´´´PowerShell
+```PowerShell
 docker compose logs -f flowable-ui
-´´´
+```
 
 3. Detener y Limpiar
-´´´PowerShell
+```PowerShell
 docker compose down
-´´´
+```
 
 ### 🖥️ Acceso a la Plataforma
 Una vez iniciado el servicio, abre tu navegador:
@@ -46,9 +46,9 @@ Usuario por defecto: admin
 Contraseña: test
 
 ### Reset de Fábrica (Borrar todo)
-´´´PowerShell
+```PowerShell
 docker compose down -v
-´´´
+```
 
 ### 1. Clonar el repositorio
 ```bash
